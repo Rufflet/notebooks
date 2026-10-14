@@ -9,6 +9,7 @@ Not yet on observablehq.com. No tool comparison yet.
 - [ ] Both download buttons work.
 
 ## 2. Run the cases through real tools (optional, before announcing)
+Full procedure: `torture-test/RUNNING.md`.
 Download "all 20 cases" from the notebook, plus run case 05 and 18 as separate files from `torture-test/cases/`.
 For each tool record version + date and save the PDFs:
 - [ ] md2file.com
