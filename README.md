@@ -4,7 +4,7 @@ Observable notebooks by Alex Ershov, in the open [Notebooks 2.0](https://observa
 
 | Notebook | Description |
 |---|---|
-| [torture-test](torture-test/) | Markdown → PDF torture test: 20 cases that break converters |
+| [torture-test](torture-test/) · [live](https://rufflet.github.io/notebooks/torture-test/) | Markdown → PDF torture test: 20 cases that break converters |
 
 ```sh
 npm install

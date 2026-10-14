@@ -7,7 +7,10 @@ so `index.html` is self-contained.
 UTM: the notebook sets `utm_source` at runtime: `github-pages` on `*.github.io`, `observable` everywhere else.
 `utm_medium=notebook`, `utm_campaign=torture-test`.
 
-## A. GitHub Pages (agent can do all of it after the owner's OK)
+## A. GitHub Pages — done 2026-10-14
+
+Repo: https://github.com/Rufflet/notebooks, workflow `.github/workflows/pages.yml` deploys on every push to `main`.
+Steps used:
 
 1. Create the public repo: `gh repo create Rufflet/notebooks --public --source . --push`.
 2. Add `.github/workflows/pages.yml`: `npm ci` → `npm run build` (the default base `./` works on Pages) →
