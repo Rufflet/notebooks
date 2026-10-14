@@ -1,0 +1,316 @@
+<!doctype html>
+<notebook theme="light-dark(air, midnight)">
+  <title>Markdown → PDF torture test: 20 cases that break converters</title>
+  <script id="1" type="text/markdown">
+    # Markdown → PDF torture test
+
+    ## 20 cases that break converters
+
+    Markdown looks simple until you try to print it. Wide tables get clipped, code runs off the page, Chinese turns into empty boxes, Mermaid prints as source code, and `> [!NOTE]` shows up as literal text.
+
+    I build [md2file](https://md2file.com/?utm_source=${utmSource}&utm_medium=notebook&utm_campaign=torture-test), a Markdown → PDF converter, and collected these cases while fixing my own exporter. Each case is a small, reproducible `.md` file with a note on what usually goes wrong and what a correct PDF should look like. Download them all as one file below and run them through whatever tool you use.
+  </script>
+  <script id="2" type="module" hidden="">
+    // BEGIN GENERATED (npm run embed)
+    const caseSources = {"01-wide-table.md":"\u003c!-- What we test: a 14-column table must fit the page width (shrink, wrap or switch to landscape), never be clipped at the right margin. -->\n\n# 01 · Wide table\n\n| ID | Region | Product | Q1 units | Q1 revenue | Q2 units | Q2 revenue | Q3 units | Q3 revenue | Q4 units | Q4 revenue | Total units | Total revenue | Comment |\n|---|---|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|---|\n| 1 | North | Widget Standard | 1,204 | $24,080 | 1,310 | $26,200 | 1,288 | $25,760 | 1,502 | $30,040 | 5,304 | $106,080 | Seasonal peak in Q4 |\n| 2 | South | Widget Pro | 830 | $33,200 | 912 | $36,480 | 875 | $35,000 | 990 | $39,600 | 3,607 | $144,280 | New packaging from Q2 |\n| 3 | East | Widget Mini | 2,410 | $19,280 | 2,380 | $19,040 | 2,505 | $20,040 | 2,690 | $21,520 | 9,985 | $79,880 | Stable |\n| 4 | West | Widget Enterprise Edition | 95 | $47,500 | 120 | $60,000 | 101 | $50,500 | 143 | $71,500 | 459 | $229,500 | The longest cell in the table, it should wrap inside its column |\n","02-long-table.md":"\u003c!-- What we test: a table longer than one page. The header row should repeat on every page and no row should be cut in half horizontally. -->\n\n# 02 · Long table across pages\n\n| # | Item | Description | Status |\n|--:|---|---|---|\n| 1 | Task 1 | Regular row | Open |\n| 2 | Task 2 | Regular row | Open |\n| 3 | Task 3 | Regular row | Done |\n| 4 | Task 4 | Regular row | Open |\n| 5 | Task 5 | Regular row | Open |\n| 6 | Task 6 | Regular row | Done |\n| 7 | Task 7 | Regular row | Open |\n| 8 | Task 8 | Regular row | Open |\n| 9 | Task 9 | Regular row | Done |\n| 10 | Task 10 | A deliberately taller row: this description runs over several lines so that a page break is likely to land in the middle of it. Converters that split rows will print half of this text on one page and half on the next. | Open |\n| 11 | Task 11 | Regular row | Open |\n| 12 | Task 12 | Regular row | Done |\n| 13 | Task 13 | Regular row | Open |\n| 14 | Task 14 | Regular row | Open |\n| 15 | Task 15 | Regular row | Done |\n| 16 | Task 16 | Regular row | Open |\n| 17 | Task 17 | Regular row | Open |\n| 18 | Task 18 | Regular row | Done |\n| 19 | Task 19 | Regular row | Open |\n| 20 | Task 20 | A deliberately taller row: this description runs over several lines so that a page break is likely to land in the middle of it. Converters that split rows will print half of this text on one page and half on the next. | Open |\n| 21 | Task 21 | Regular row | Done |\n| 22 | Task 22 | Regular row | Open |\n| 23 | Task 23 | Regular row | Open |\n| 24 | Task 24 | Regular row | Done |\n| 25 | Task 25 | Regular row | Open |\n| 26 | Task 26 | Regular row | Open |\n| 27 | Task 27 | Regular row | Done |\n| 28 | Task 28 | Regular row | Open |\n| 29 | Task 29 | Regular row | Open |\n| 30 | Task 30 | A deliberately taller row: this description runs over several lines so that a page break is likely to land in the middle of it. Converters that split rows will print half of this text on one page and half on the next. | Done |\n| 31 | Task 31 | Regular row | Open |\n| 32 | Task 32 | Regular row | Open |\n| 33 | Task 33 | Regular row | Done |\n| 34 | Task 34 | Regular row | Open |\n| 35 | Task 35 | Regular row | Open |\n| 36 | Task 36 | Regular row | Done |\n| 37 | Task 37 | Regular row | Open |\n| 38 | Task 38 | Regular row | Open |\n| 39 | Task 39 | Regular row | Done |\n| 40 | Task 40 | A deliberately taller row: this description runs over several lines so that a page break is likely to land in the middle of it. Converters that split rows will print half of this text on one page and half on the next. | Open |\n| 41 | Task 41 | Regular row | Open |\n| 42 | Task 42 | Regular row | Done |\n| 43 | Task 43 | Regular row | Open |\n| 44 | Task 44 | Regular row | Open |\n| 45 | Task 45 | Regular row | Done |\n| 46 | Task 46 | Regular row | Open |\n| 47 | Task 47 | Regular row | Open |\n| 48 | Task 48 | Regular row | Done |\n| 49 | Task 49 | Regular row | Open |\n| 50 | Task 50 | A deliberately taller row: this description runs over several lines so that a page break is likely to land in the middle of it. Converters that split rows will print half of this text on one page and half on the next. | Open |\n| 51 | Task 51 | Regular row | Done |\n| 52 | Task 52 | Regular row | Open |\n| 53 | Task 53 | Regular row | Open |\n| 54 | Task 54 | Regular row | Done |\n| 55 | Task 55 | Regular row | Open |\n| 56 | Task 56 | Regular row | Open |\n| 57 | Task 57 | Regular row | Done |\n| 58 | Task 58 | Regular row | Open |\n| 59 | Task 59 | Regular row | Open |\n| 60 | Task 60 | A deliberately taller row: this description runs over several lines so that a page break is likely to land in the middle of it. Converters that split rows will print half of this text on one page and half on the next. | Done |\n| 61 | Task 61 | Regular row | Open |\n| 62 | Task 62 | Regular row | Open |\n| 63 | Task 63 | Regular row | Done |\n| 64 | Task 64 | Regular row | Open |\n| 65 | Task 65 | Regular row | Open |\n| 66 | Task 66 | Regular row | Done |\n| 67 | Task 67 | Regular row | Open |\n| 68 | Task 68 | Regular row | Open |\n| 69 | Task 69 | Regular row | Done |\n| 70 | Task 70 | A deliberately taller row: this description runs over several lines so that a page break is likely to land in the middle of it. Converters that split rows will print half of this text on one page and half on the next. | Open |\n| 71 | Task 71 | Regular row | Open |\n| 72 | Task 72 | Regular row | Done |\n| 73 | Task 73 | Regular row | Open |\n| 74 | Task 74 | Regular row | Open |\n| 75 | Task 75 | Regular row | Done |\n| 76 | Task 76 | Regular row | Open |\n| 77 | Task 77 | Regular row | Open |\n| 78 | Task 78 | Regular row | Done |\n| 79 | Task 79 | Regular row | Open |\n| 80 | Task 80 | A deliberately taller row: this description runs over several lines so that a page break is likely to land in the middle of it. Converters that split rows will print half of this text on one page and half on the next. | Open |\n| 81 | Task 81 | Regular row | Done |\n| 82 | Task 82 | Regular row | Open |\n| 83 | Task 83 | Regular row | Open |\n| 84 | Task 84 | Regular row | Done |\n| 85 | Task 85 | Regular row | Open |\n| 86 | Task 86 | Regular row | Open |\n| 87 | Task 87 | Regular row | Done |\n| 88 | Task 88 | Regular row | Open |\n| 89 | Task 89 | Regular row | Open |\n| 90 | Task 90 | A deliberately taller row: this description runs over several lines so that a page break is likely to land in the middle of it. Converters that split rows will print half of this text on one page and half on the next. | Done |\n| 91 | Task 91 | Regular row | Open |\n| 92 | Task 92 | Regular row | Open |\n| 93 | Task 93 | Regular row | Done |\n| 94 | Task 94 | Regular row | Open |\n| 95 | Task 95 | Regular row | Open |\n| 96 | Task 96 | Regular row | Done |\n| 97 | Task 97 | Regular row | Open |\n| 98 | Task 98 | Regular row | Open |\n| 99 | Task 99 | Regular row | Done |\n| 100 | Task 100 | A deliberately taller row: this description runs over several lines so that a page break is likely to land in the middle of it. Converters that split rows will print half of this text on one page and half on the next. | Open |\n| 101 | Task 101 | Regular row | Open |\n| 102 | Task 102 | Regular row | Done |\n| 103 | Task 103 | Regular row | Open |\n| 104 | Task 104 | Regular row | Open |\n| 105 | Task 105 | Regular row | Done |\n| 106 | Task 106 | Regular row | Open |\n| 107 | Task 107 | Regular row | Open |\n| 108 | Task 108 | Regular row | Done |\n| 109 | Task 109 | Regular row | Open |\n| 110 | Task 110 | A deliberately taller row: this description runs over several lines so that a page break is likely to land in the middle of it. Converters that split rows will print half of this text on one page and half on the next. | Open |\n| 111 | Task 111 | Regular row | Done |\n| 112 | Task 112 | Regular row | Open |\n| 113 | Task 113 | Regular row | Open |\n| 114 | Task 114 | Regular row | Done |\n| 115 | Task 115 | Regular row | Open |\n| 116 | Task 116 | Regular row | Open |\n| 117 | Task 117 | Regular row | Done |\n| 118 | Task 118 | Regular row | Open |\n| 119 | Task 119 | Regular row | Open |\n| 120 | Task 120 | A deliberately taller row: this description runs over several lines so that a page break is likely to land in the middle of it. Converters that split rows will print half of this text on one page and half on the next. | Done |\n","03-long-code-line.md":"\u003c!-- What we test: code lines with no spaces wider than the page. They should wrap (or scroll in HTML) but never run off the page edge in PDF. -->\n\n# 03 · Long code lines\n\n```js\nconst veryLongConfigurationValueWithoutAnySpaces = \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\";\nfetch(\"https://api.example.com/v1/organizations/0000/projects/1111/environments/production/deployments?include=artifacts,logs,metrics&limit=100&sort=-created_at\");\n```\n\n```text\n2026-01-01T00:00:00.000Z ERROR [worker-7] java.lang.IllegalStateException: Unexpected state transition PENDING->COMPLETED at com.example.pipeline.scheduler.internal.StateMachine.transition(StateMachine.java:142)\n```\n\nInline code too: `this_is_a_single_inline_identifier_that_is_much_longer_than_any_reasonable_line_width_in_a_pdf_document`.\n","04-heading-at-page-bottom.md":"\u003c!-- What we test: a heading that falls at the very bottom of a page must move to the next page together with its first paragraph (no \"orphaned\" heading). Adjust the filler if your page size differs. -->\n\n# 04 · Heading at the bottom of a page\n\nFiller paragraph 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nFiller paragraph 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nFiller paragraph 3. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nFiller paragraph 4. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nFiller paragraph 5. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nFiller paragraph 6. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nFiller paragraph 7. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nFiller paragraph 8. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nFiller paragraph 9. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nFiller paragraph 10. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nFiller paragraph 11. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\n## This heading must not be left alone at the bottom\n\nThe first paragraph after the heading. In a correct PDF this paragraph starts on the same page as the heading above it.\n","05-images.md":"\u003c!-- What we test: (a) an image wider than the page must be scaled down to the text width, keeping its aspect ratio; (b) a relative path must resolve against the .md file's folder; (c) a missing image must not break the whole export. -->\n\n# 05 · Large and relative images\n\nLarge image (3000 × 600, relative path):\n\n![Wide test image](images/wide.svg)\n\nMissing image (should show alt text or a placeholder, export must still succeed):\n\n![This file does not exist](images/missing.png)\n\nRemote image with a title:\n\n![Remote placeholder](https://dummyimage.com/600x200/cccccc/333333.png&text=remote \"Remote image\")\n","06-nested-lists.md":"\u003c!-- What we test: lists nested 4+ levels, mixed ordered/unordered, custom start number and GitHub task-list checkboxes. Indentation and numbering must survive. -->\n\n# 06 · Nested and mixed lists\n\n1. Level 1, ordered\n   - Level 2, bullet\n     1. Level 3, ordered\n        - Level 4, bullet\n          - Level 5, bullet\n2. Second item with a paragraph\n\n   A second paragraph inside the same list item.\n\n5. Typed as \"5.\" in the source: Markdown ignores it and shows \"3.\"\n\nStarting at 7:\n\n7. Seven\n8. Eight\n\nTask list:\n\n- [x] Done item\n- [ ] Open item\n  - [ ] Nested open item\n  - [x] Nested done item\n","07-cjk.md":"\u003c!-- What we test: Chinese, Japanese and Korean text must render with real glyphs, not empty boxes (\"tofu\"). Also checks line breaking inside CJK text without spaces. -->\n\n# 07 · CJK text\n\n**简体中文：** 今天天气很好，我们去公园散步吧。春天的花开得很漂亮，湖面上有几只小船。\n\n**繁體中文：** 這是一段用來測試字型的繁體中文文字，包含常見的標點符號：「引號」、（括號）。\n\n**日本語：** 今日はいい天気ですね。カタカナ、ひらがな、漢字が混ざった文章で、改行の位置も確認します。\n\n**한국어:** 오늘은 날씨가 좋습니다. 한글 문장이 올바른 글꼴로 표시되는지 확인합니다.\n\n| 语言 | 例子 |\n|---|---|\n| 中文 | 你好，世界 |\n| 日本語 | こんにちは世界 |\n| 한국어 | 안녕하세요 세계 |\n\nA long line without spaces: 这是一个没有空格的很长的句子用来测试自动换行是否正常工作而不会超出页面的右边距这是一个没有空格的很长的句子用来测试自动换行。\n","08-rtl.md":"\u003c!-- What we test: Arabic and Hebrew paragraphs must be right-aligned and shaped correctly (Arabic letters joined); embedded LTR words and numbers must keep their order. -->\n\n# 08 · RTL mixed with LTR\n\n\u003cdiv dir=\"rtl\">\n\nمرحبا بالعالم. هذا نص عربي لاختبار الاتجاه من اليمين إلى اليسار، مع كلمة Markdown ورقم 2026 في وسط الجملة.\n\nשלום עולם. זהו טקסט בעברית עם המילה PDF והמספר 42 באמצע המשפט.\n\n\u003c/div>\n\nWithout an explicit `dir`, mixed in an English sentence: the word «مرحبا» and the word «שלום» inside LTR text, followed by (parentheses) and the number 3.14.\n\n- عنصر قائمة أول\n- פריט שני ברשימה\n","09-emoji-unicode.md":"\u003c!-- What we test: color emoji (including ZWJ sequences, skin tones and flags) and rare Unicode symbols must render, not show as boxes or question marks. -->\n\n# 09 · Emoji and rare Unicode\n\nBasic emoji: 😀 🚀 ✅ ❌ ⚠️ 📄 🧪\n\nZWJ sequences: 👩‍💻 👨‍👩‍👧‍👦 🏳️‍🌈 · skin tones: 👍🏻 👍🏿 · flags: 🇯🇵 🇧🇷 🇨🇦\n\nMath and symbols: ∀x ∈ ℝ, ∑ ≠ ∏, ≤ ≥ ≈ ∞ · arrows: ← → ⇄ ↻ · box drawing: ┌─┬─┐\n\nRare scripts: Ꭰ Ꮳ Ꮅ (Cherokee) · ᚠᚢᚦ (Runic) · 𝄞 (musical symbol, outside the BMP) · 𝔘𝔫𝔦𝔠𝔬𝔡𝔢\n\nCombining marks: \"e\" + U+0301 → é · a̐ ō̈\n","10-long-urls-words.md":"\u003c!-- What we test: long URLs and long words without spaces must break inside the text column instead of overflowing the right margin. -->\n\n# 10 · Long URLs and unbreakable words\n\nBare URL: https://example.com/a/very/long/path/that/keeps/going/and/going/without/any/natural/break/points/index.html?query=parameter&another=value&utm_source=test\n\nMarkdown link with long visible URL: [https://example.com/documentation/getting-started/installation/linux/ubuntu/24.04/troubleshooting](https://example.com/)\n\nGerman compound: Donaudampfschifffahrtselektrizitätenhauptbetriebswerkbauunterbeamtengesellschaft.\n\nChemistry: Methionylthreonylthreonylglutaminylarginyltyrosylglutamylserylleucylphenylalanylalanylglutaminylleucyllysylglutamylarginyllysine.\n\nIn a table:\n\n| Key | Value |\n|---|---|\n| token | eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0 |\n","11-math.md":"\u003c!-- What we test: inline $...$ and block $$...$$ math (KaTeX/MathJax syntax), aligned environments and matrices. A dollar sign used as currency must stay text. -->\n\n# 11 · Math\n\nInline: the area of a circle is $A = \\pi r^2$, and Euler's identity is $e^{i\\pi} + 1 = 0$.\n\nBlock:\n\n$$\n\\int_{-\\infty}^{\\infty} e^{-x^2}\\,dx = \\sqrt{\\pi}\n$$\n\nAligned:\n\n$$\n\\begin{aligned}\nf(x) &= (x+1)^2 \\\\\n     &= x^2 + 2x + 1\n\\end{aligned}\n$$\n\nMatrix:\n\n$$\nA = \\begin{pmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ 7 & 8 & 9 \\end{pmatrix}\n$$\n\nCurrency, not math: the plan costs $5 per month and $50 per year.\n","12-mermaid.md":"\u003c!-- What we test: Mermaid code blocks must become diagrams (vector, not blurry), not be printed as source code. Large diagrams must fit the page width. -->\n\n# 12 · Mermaid diagrams\n\n```mermaid\nflowchart LR\n  A[Markdown] --> B{Parser}\n  B -->|HTML| C[Browser]\n  B -->|PDF| D[Print engine]\n  D --> E((File))\n```\n\n```mermaid\nsequenceDiagram\n  participant U as User\n  participant S as Server\n  U->>S: Upload .md\n  S-->>U: 202 Accepted\n  S->>S: Render\n  S-->>U: PDF ready\n```\n\n```mermaid\ngantt\n  dateFormat YYYY-MM-DD\n  title Release plan\n  section Build\n  Parser    :a1, 2026-01-05, 10d\n  Renderer  :after a1, 14d\n  section Ship\n  Beta      :2026-02-01, 7d\n```\n","13-footnotes.md":"\u003c!-- What we test: footnote references become superscript links and footnote text is collected at the end (or bottom of page) with working back-links. -->\n\n# 13 · Footnotes\n\nMarkdown footnotes are an extension[^ext], supported by GitHub, pandoc and many others[^many].\n\nA footnote can be referenced twice[^ext] and can contain **formatting** and code[^code].\n\n[^ext]: Not part of CommonMark.\n[^many]: But each tool renders them a little differently.\n[^code]: For example `markdown-it-footnote`:\n    ```js\n    md.use(footnote)\n    ```\n","14-github-alerts.md":"\u003c!-- What we test: GitHub alert syntax (> [!NOTE] etc.) should render as colored callouts with a title, not as a blockquote with the literal text \"[!NOTE]\". -->\n\n# 14 · GitHub alerts\n\n> [!NOTE]\n> Useful information that users should know.\n\n> [!TIP]\n> Helpful advice for doing things better.\n\n> [!IMPORTANT]\n> Key information users need to know.\n\n> [!WARNING]\n> Urgent info that needs immediate attention.\n\n> [!CAUTION]\n> Advises about risks or negative outcomes.\n\n> A regular blockquote, for comparison.\n","15-details.md":"\u003c!-- What we test: \u003cdetails>/\u003csummary> are interactive in HTML. A static PDF should show the content expanded; a collapsed block hides content from the reader. -->\n\n# 15 · Collapsible details\n\n\u003cdetails>\n\u003csummary>Click to expand: installation steps\u003c/summary>\n\n1. Download the package.\n2. Run `npm install`.\n3. Start the app.\n\n\u003c/details>\n\n\u003cdetails open>\n\u003csummary>Already open: FAQ\u003c/summary>\n\n**Q:** Should this be visible in the PDF?\n**A:** Yes, in both blocks.\n\n\u003c/details>\n","16-inline-html.md":"\u003c!-- What we test: inline HTML elements (\u003ckbd>, \u003csup>, \u003csub>, \u003cmark>, \u003cbr>), raw HTML blocks and column alignment in tables. -->\n\n# 16 · Inline HTML and table alignment\n\nPress \u003ckbd>Ctrl\u003c/kbd> + \u003ckbd>Shift\u003c/kbd> + \u003ckbd>P\u003c/kbd>. Water is H\u003csub>2\u003c/sub>O, and E = mc\u003csup>2\u003c/sup>. This is \u003cmark>highlighted\u003c/mark>.\u003cbr>This line follows a hard `\u003cbr>`.\n\n\u003cp align=\"center\">\u003cstrong>Centered HTML paragraph\u003c/strong>\u003c/p>\n\n| Left | Center | Right |\n|:-----|:------:|------:|\n| a | b | 1.00 |\n| longer text | centered | 1,234.50 |\n\n\u003ctable>\n  \u003ctr>\u003cth>Raw\u003c/th>\u003cth>HTML\u003c/th>\u003c/tr>\n  \u003ctr>\u003ctd colspan=\"2\">A cell spanning two columns\u003c/td>\u003c/tr>\n\u003c/table>\n","17-syntax-highlighting.md":"\u003c!-- What we test: syntax highlighting for common and less common languages; colors must survive printing (background colors are often dropped). Unknown languages should fall back to plain monospace. -->\n\n# 17 · Syntax highlighting\n\n```typescript\ninterface User { id: number; name: string }\nconst greet = (u: User): string => `Hello, ${u.name}`;\n```\n\n```rust\nfn main() {\n    let v: Vec\u003ci32> = (1..=5).map(|x| x * x).collect();\n    println!(\"{:?}\", v);\n}\n```\n\n```haskell\nquicksort :: Ord a => [a] -> [a]\nquicksort []     = []\nquicksort (p:xs) = quicksort [x | x \u003c- xs, x \u003c p] ++ [p] ++ quicksort [x | x \u003c- xs, x >= p]\n```\n\n```elixir\ndefmodule Greeter do\n  def hello(name), do: \"Hello, #{name}!\"\nend\n```\n\n```diff\n- const color = \"red\";\n+ const color = \"green\";\n```\n\n```not-a-real-language\nThis block uses an unknown language tag and must still render as code.\n```\n","18-yaml-frontmatter.md":"---\ntitle: \"Front matter test\"\nauthor: Test Author\ndate: 2026-01-01\ntags: [markdown, pdf]\n---\n\n\u003c!-- What we test: the YAML front matter above must not be printed as text (or as a horizontal rule followed by a \"title:\" paragraph). Tools may use it for metadata. -->\n\n# 18 · YAML front matter\n\nIf you see `title: \"Front matter test\"` printed above this heading, the converter does not understand front matter.\n\n---\n\nThe line above is a real horizontal rule and must stay one.\n","19-anchors-toc.md":"\u003c!-- What we test: links to headings (#anchors) must be clickable inside the PDF and jump to the right page; non-ASCII headings and duplicate headings need stable ids. -->\n\n# 19 · Anchors and table of contents\n\n## Contents\n\n- [Introduction](#introduction)\n- [Details with spaces](#details-with-spaces)\n- [Ünïcödé heading](#ünïcödé-heading)\n- [Repeated heading (first)](#repeated)\n- [Repeated heading (second)](#repeated-1)\n- [Back to top](#19--anchors-and-table-of-contents)\n\n## Introduction\n\nSome text. Jump to [the details](#details-with-spaces).\n\n## Details with spaces\n\nMore text.\n\n## Ünïcödé heading\n\nGitHub keeps non-ASCII letters in ids; other tools transliterate them.\n\n## Repeated\n\nFirst.\n\n## Repeated\n\nSecond. GitHub gives it the id `repeated-1`.\n","20-very-long-document.md":"\u003c!-- What we test: a 100+ page document. Watch export time, memory, and whether page numbers and the last pages are intact. This file is one section; the notebook's \"Download 150-page version\" button repeats it 60 times. -->\n\n# 20 · Very long document — section {n}\n\n## Overview {n}\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Maecenas faucibus mollis interdum. Cras mattis consectetur purus sit amet fermentum.\n\n| Metric | Value |\n|---|--:|\n| Section | {n} |\n| Rows | 3 |\n\n```js\nconsole.log(\"section {n}\");\n```\n\n- Point one\n- Point two\n- Point three\n\nDonec ullamcorper nulla non metus auctor fringilla. Nullam id dolor id nibh ultricies vehicula ut id elit. Vestibulum id ligula porta felis euismod semper. Curabitur blandit tempus porttitor.\n"};
+    const caseImages = {"images/wide.svg":"\u003csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"3000\" height=\"600\" viewBox=\"0 0 3000 600\">\u003crect width=\"3000\" height=\"600\" fill=\"#4f6d8f\"/>\u003cg fill=\"#fff\" font-family=\"sans-serif\" font-size=\"64\">\u003ctext x=\"40\" y=\"320\">LEFT EDGE\u003c/text>\u003ctext x=\"1300\" y=\"320\">CENTER\u003c/text>\u003ctext x=\"2560\" y=\"320\">RIGHT EDGE\u003c/text>\u003c/g>\u003crect x=\"10\" y=\"10\" width=\"2980\" height=\"580\" fill=\"none\" stroke=\"#ffcc00\" stroke-width=\"20\"/>\u003c/svg>\n"};
+    // END GENERATED
+  </script>
+  <script id="3" type="module" hidden="">
+    const caseInfo = [
+      {group: "Layout & pages", title: "Wide table (14 columns)",
+        breaks: "The table is clipped at the right margin or overflows into the page edge; some tools shrink it to an unreadable size.",
+        expected: "All 14 columns are visible inside the margins. Long cells wrap inside their column. Landscape pages or a moderate font reduction are acceptable."},
+      {group: "Layout & pages", title: "Long table across pages",
+        breaks: "The header row appears only on the first page, and tall rows are sliced horizontally across a page break.",
+        expected: "The header row repeats at the top of every page (`thead { display: table-header-group }`), and each row stays on one page (`tr { break-inside: avoid }`)."},
+      {group: "Layout & pages", title: "Long code lines",
+        breaks: "Lines without spaces run off the right edge and are lost; in HTML they scroll, but paper cannot scroll.",
+        expected: "Long lines wrap inside the code block (`white-space: pre-wrap; overflow-wrap: anywhere`), ideally with a visible wrap indicator. Nothing is cut off."},
+      {group: "Layout & pages", title: "Heading at the bottom of a page",
+        breaks: "A heading is printed as the last line of a page, and its text starts on the next page.",
+        expected: "The heading moves to the next page together with its first paragraph (`h2 { break-after: avoid }`). Note: the result depends on page size and margins, so tune the filler for your setup."},
+      {group: "Layout & pages", title: "Large and relative images",
+        breaks: "Relative paths do not resolve (the converter does not know where the .md file lives), wide images overflow the page, and one missing image fails the whole export.",
+        expected: "The 3000 px image is scaled to the text width with its aspect ratio kept (all three labels and the yellow border are visible). The missing image shows its alt text; the export still succeeds."},
+      {group: "Layout & pages", title: "Nested and mixed lists",
+        breaks: "Deep levels lose their indentation, numbering restarts or continues incorrectly, and `- [ ]` prints as literal brackets.",
+        expected: "Five levels of indentation are visible, ordered and bullet markers alternate as in the source, the list starting at 7 starts at 7, and task items show checkboxes."},
+      {group: "Typography & languages", title: "CJK text",
+        breaks: "Empty rectangles (“tofu”) instead of characters because the PDF engine has no CJK font; long lines without spaces do not wrap.",
+        expected: "All four scripts render with real glyphs (an embedded Noto Sans CJK or similar), punctuation is full-width, and the long line wraps at the margin."},
+      {group: "Typography & languages", title: "RTL mixed with LTR",
+        breaks: "Arabic letters are not joined, RTL paragraphs are left-aligned, and Latin words or numbers swap places inside RTL text.",
+        expected: "The `dir=\"rtl\"` block is right-aligned with joined Arabic letters; “Markdown”, “PDF”, 2026 and 42 keep their positions; the English sentence stays LTR."},
+      {group: "Typography & languages", title: "Emoji and rare Unicode",
+        breaks: "Emoji become boxes or monochrome outlines, ZWJ sequences split into several emoji, flags show as letter pairs, and characters outside the BMP disappear.",
+        expected: "Color emoji, ZWJ families and flags render as single glyphs; math symbols, Cherokee, Runic and 𝄞 are visible (font fallback); combining marks sit on their letters."},
+      {group: "Typography & languages", title: "Long URLs and unbreakable words",
+        breaks: "The URL or the 100-letter word overflows the right margin, or the whole line is pushed to the next page.",
+        expected: "Long strings break inside the text column (`overflow-wrap: anywhere` or hyphenation). The token in the table wraps inside its cell."},
+      {group: "Syntax extensions", title: "Math (KaTeX / MathJax)",
+        breaks: "Formulas print as raw `$...$` source, `\\begin{aligned}` fails, and the currency line is wrongly treated as math.",
+        expected: "Inline and display formulas are typeset, the aligned equations line up on `=`, the matrix has parentheses, and “$5 per month and $50 per year” stays plain text."},
+      {group: "Syntax extensions", title: "Mermaid diagrams",
+        breaks: "Diagrams print as code blocks, render as blurry screenshots, or are cut off because they are wider than the page.",
+        expected: "Three vector diagrams (flowchart, sequence, gantt), each fitting the page width, with readable labels."},
+      {group: "Syntax extensions", title: "Footnotes",
+        breaks: "`[^1]` prints literally, or footnotes render but the links do not work in the PDF.",
+        expected: "Superscript numbers link to a footnote list at the end (or at the page bottom) with back-links. The reused footnote keeps its number; the footnote with a code block renders it as code."},
+      {group: "Syntax extensions", title: "GitHub alerts",
+        breaks: "Rendered as a plain blockquote that starts with the literal text “[!NOTE]”.",
+        expected: "Five colored callouts with an icon or title (Note, Tip, Important, Warning, Caution), plus one ordinary blockquote for comparison."},
+      {group: "Syntax extensions", title: "Collapsible <details>",
+        breaks: "A collapsed `<details>` block prints only its summary line, so the content is silently missing from the PDF.",
+        expected: "Both blocks are printed expanded, including the installation steps. (The live preview below shows them as a browser does: the first one is collapsed.)"},
+      {group: "Syntax extensions", title: "Inline HTML and table alignment",
+        breaks: "HTML tags are stripped or printed as text, `<kbd>` loses its style, and column alignment is ignored.",
+        expected: "Keys look like keys, sub/superscripts are positioned, the centered paragraph is centered, columns are left/center/right aligned, and the raw HTML table spans two columns."},
+      {group: "Syntax extensions", title: "Syntax highlighting",
+        breaks: "Colors disappear in print (backgrounds dropped), less common languages are not highlighted, and an unknown language tag breaks the block.",
+        expected: "All blocks are highlighted with colors kept in print (`print-color-adjust: exact`); the diff shows red/green lines; the unknown language falls back to plain monospace."},
+      {group: "Syntax extensions", title: "YAML front matter",
+        breaks: "The front matter prints as a horizontal rule followed by a paragraph “title: … author: …”.",
+        expected: "Nothing from the front matter is printed as text (it may be used for the PDF title or metadata). The horizontal rule after the second paragraph is still there."},
+      {group: "Syntax extensions", title: "Anchors and table of contents",
+        breaks: "Links to `#headings` are dead in the PDF, non-ASCII ids differ from GitHub, and the duplicate heading links to the first one.",
+        expected: "Every contents entry is clickable in the PDF and jumps to the right heading, including the Ünïcödé one and the second “Repeated” (`#repeated-1`)."},
+      {group: "Scale", title: "Very long document",
+        breaks: "Export times out, the tab runs out of memory, or the last pages are blank or missing.",
+        expected: "The 150-page version exports completely in reasonable time; page count matches, the last section (60) is present."}
+    ];
+    const cases = Object.keys(caseSources).map((file, i) => ({file, n: i + 1, ...caseInfo[i]}));
+  </script>
+  <script id="4" type="module" hidden="">
+    import MarkdownIt from "npm:markdown-it@15.0.2";
+    import anchor from "npm:markdown-it-anchor@9.2.0";
+    import footnote from "npm:markdown-it-footnote@4.0.0";
+    import taskLists from "npm:markdown-it-task-lists@2.1.1";
+    import alerts from "npm:markdown-it-github-alerts@1.0.1";
+    import texmath from "npm:markdown-it-texmath@1.0.0";
+    import katex from "npm:katex@0.19.0";
+    import hljs from "npm:highlight.js@11.12.0";
+
+    for (const href of [
+      "https://cdn.jsdelivr.net/npm/katex@0.19.0/dist/katex.min.css",
+      "https://cdn.jsdelivr.net/npm/markdown-it-texmath@1.0.0/css/texmath.css"
+    ]) {
+      if (!document.querySelector(`link[href="${href}"]`)) {
+        document.head.append(Object.assign(document.createElement("link"), {rel: "stylesheet", href}));
+      }
+    }
+
+    // GitHub-style heading ids: lowercase, drop punctuation, spaces → "-", "-1" suffix for duplicates.
+    function githubSlugger() {
+      const seen = new Map();
+      return (s) => {
+        const base = s.trim().toLowerCase().replace(/[^\p{L}\p{N}\s_-]/gu, "").replace(/\s/g, "-");
+        const count = seen.get(base) ?? 0;
+        seen.set(base, count + 1);
+        return count ? `${base}-${count}` : base;
+      };
+    }
+
+    function renderMarkdown(source) {
+      const mi = MarkdownIt({
+        html: true,
+        linkify: true,
+        highlight: (code, lang) => lang && hljs.getLanguage(lang) ? hljs.highlight(code, {language: lang}).value : ""
+      });
+      mi.use(anchor, {slugify: githubSlugger()})
+        .use(footnote)
+        .use(taskLists, {enabled: false})
+        .use(alerts)
+        .use(texmath, {engine: katex, delimiters: "dollars"});
+
+      // Front matter: show it as metadata, never as body text.
+      let frontMatter = null;
+      const m = /^---\r?\n([\s\S]*?)\r?\n---\r?\n/.exec(source);
+      if (m) frontMatter = m[1], source = source.slice(m[0].length);
+
+      const root = document.createElement("div");
+      root.className = "tt-render";
+      root.innerHTML = mi.render(source);
+      if (frontMatter) {
+        const meta = html`<details class="tt-frontmatter"><summary>Front matter (metadata, not printed)</summary><pre>${frontMatter}</pre></details>`;
+        root.prepend(meta);
+      }
+      for (const img of root.querySelectorAll("img")) {
+        const svg = caseImages[img.getAttribute("src")];
+        if (svg) img.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+      }
+      for (const a of root.querySelectorAll("a[href^='#']")) {
+        a.addEventListener("click", (event) => {
+          const target = root.querySelector(`[id="${CSS.escape(decodeURIComponent(a.hash.slice(1)))}"]`);
+          if (target) event.preventDefault(), target.scrollIntoView({behavior: "smooth", block: "start"});
+        });
+      }
+      return root;
+    }
+
+    // Mermaid is loaded lazily, only for cases that contain diagrams.
+    async function renderMermaid(root) {
+      for (const code of root.querySelectorAll("pre > code.language-mermaid")) {
+        try {
+          code.parentElement.replaceWith(await mermaid({raw: [code.textContent]}));
+        } catch (error) {
+          code.parentElement.before(html`<p class="tt-error">Mermaid error: ${error.message}</p>`);
+        }
+      }
+      return root;
+    }
+  </script>
+  <script id="5" type="text/markdown">
+    ---
+
+    ## The cases
+
+    Pick a case to see its Markdown source next to how your browser renders it here (markdown-it with GFM-style plugins, KaTeX, Mermaid and highlight.js). The browser preview is a reference for the content, not for pagination: page breaks only exist in the PDF, so each case also says what to look for there.
+  </script>
+  <script id="6" type="module">
+    const selected = view(Inputs.select(cases, {
+      label: "Case",
+      format: (c) => `${String(c.n).padStart(2, "0")} · ${c.title}`,
+      value: cases[0]
+    }));
+  </script>
+  <script id="7" type="text/markdown">
+    <div class="tt-card">
+      <div class="tt-group">${selected.group} · <code>${selected.file}</code></div>
+
+    **What usually breaks.** ${selected.breaks}
+
+    **How it should look in the PDF.** ${selected.expected}
+
+    </div>
+  </script>
+  <script id="8" type="module">
+    const source = caseSources[selected.file].replaceAll("{n}", "1");
+    const rendered = renderMermaid(renderMarkdown(source));
+    display(html`<div class="tt-split">
+      <section>
+        <header>Markdown source <button class="tt-copy" onclick=${(event) => navigator.clipboard.writeText(source).then(() => event.target.textContent = "Copied")}>Copy</button></header>
+        <pre class="tt-source">${source}</pre>
+      </section>
+      <section>
+        <header>Browser render</header>
+        <div class="tt-preview">${await rendered}</div>
+      </section>
+    </div>`);
+  </script>
+  <script id="9" type="text/markdown">
+    ---
+
+    ## Run them through your converter
+
+    The combined file puts every case on its own page (a `page-break-after` div between cases). Two cases behave differently in the combined file: front matter only counts at the very top of a file (case 18), and relative images need the `images/` folder next to the file (case 5) — run those separately from the [repository](https://github.com/Rufflet/notebooks/tree/main/torture-test/cases) if needed.
+  </script>
+  <script id="10" type="module">
+    const pageBreak = '\n\n<div style="page-break-after: always; break-after: page;"></div>\n\n';
+    const allCases = cases.map((c) => caseSources[c.file].replaceAll("{n}", "1")).join(pageBreak);
+    const longDocument = Array.from({length: 60}, (_, i) => caseSources["20-very-long-document.md"].replaceAll("{n}", i + 1)).join(pageBreak);
+
+    function download(name, text, label) {
+      const button = html`<button class="tt-button">${label}</button>`;
+      button.onclick = () => {
+        const url = URL.createObjectURL(new Blob([text], {type: "text/markdown;charset=utf-8"}));
+        Object.assign(document.createElement("a"), {href: url, download: name}).click();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      };
+      return button;
+    }
+
+    display(html`<div class="tt-buttons">
+      ${download("markdown-pdf-torture-test.md", allCases, "Download all 20 cases (.md)")}
+      ${download("torture-test-long-document.md", longDocument, "Download the 150-page document (.md)")}
+    </div>`);
+  </script>
+  <script id="11" type="text/markdown">
+    ### Checklist
+
+    Copy this table into an issue, a gist or your notes, and fill in one column per tool you test. Write down the tool version and the date: converters change, and a result without a version is not reproducible.
+  </script>
+  <script id="12" type="module">
+    const checklist = [
+      "| # | Case | Your tool: ok / broken | Notes |",
+      "|--:|---|---|---|",
+      ...cases.map((c) => `| ${c.n} | ${c.title.replace("<details>", "`<details>`")} | | |`)
+    ].join("\n");
+    display(html`<div class="tt-split tt-split-wide">
+      <section>
+        <header>Markdown <button class="tt-copy" onclick=${(event) => navigator.clipboard.writeText(checklist).then(() => event.target.textContent = "Copied")}>Copy</button></header>
+        <pre class="tt-source tt-short">${checklist}</pre>
+      </section>
+    </div>`);
+  </script>
+  <script id="13" type="text/markdown">
+    ### What about comparing tools?
+
+    A comparison only makes sense with real, reproducible runs: the same files, the tool version, the date, and the PDFs to back it up. I have not published one yet, and I will not guess. If you run the cases through a tool, open an issue in the [repository](https://github.com/Rufflet/notebooks/issues) with your results and I will add them here, including the cases where md2file fails.
+  </script>
+  <script id="14" type="text/markdown">
+    ---
+
+    ## Need it as a PDF?
+
+    If you just want your own document to come out right, try [md2file.com](https://md2file.com/?utm_source=${utmSource}&utm_medium=notebook&utm_campaign=torture-test) — an online Markdown editor that exports to PDF and HTML with Mermaid and LaTeX support — or the [Markdown to PDF extension for Chrome](https://chromewebstore.google.com/detail/markdown-to-pdf-converter/mcajoeddbjfiaddbklgndfgidjghmgel?utm_source=${utmSource}&utm_medium=notebook&utm_campaign=torture-test). Both are mine; if either of them fails one of these cases, I want to know.
+
+    Found a case that breaks your converter and is missing here? Suggest it in the [repository](https://github.com/Rufflet/notebooks). The cases and this notebook are MIT-licensed — fork away.
+
+    <p class="tt-muted">Alex Ershov · full-stack TypeScript, AI integrations, d3.js · lead engineer at <a href="https://validstack.pro/">ValidStack</a></p>
+  </script>
+  <script id="15" type="module" hidden="">
+    const utmSource = /(^|\.)github\.io$/.test(location.hostname) ? "github-pages" : "observable";
+  </script>
+  <script id="16" type="text/html">
+    <style>
+      .tt-card { border: 1px solid var(--theme-foreground-faintest); border-radius: 8px; padding: 0.25rem 1rem; max-width: 960px; }
+      .tt-group { margin-top: 0.75rem; font: 500 12px/1.4 var(--sans-serif); color: var(--theme-foreground-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+      .tt-group code { text-transform: none; letter-spacing: 0; }
+      .tt-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1rem; max-width: 1200px; }
+      .tt-split-wide { grid-template-columns: minmax(0, 1fr); max-width: 960px; }
+      .tt-split section { min-width: 0; border: 1px solid var(--theme-foreground-faintest); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; }
+      .tt-split header { display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0.75rem; font: 500 13px/1.4 var(--sans-serif); color: var(--theme-foreground-muted); background: var(--theme-background-alt); border-bottom: 1px solid var(--theme-foreground-faintest); }
+      .tt-source { margin: 0; padding: 0.75rem; font-size: 12px; line-height: 1.5; max-height: 640px; overflow: auto; white-space: pre; background: none; }
+      .tt-short { max-height: 360px; }
+      .tt-preview { padding: 0 1rem; max-height: 640px; overflow: auto; }
+      .tt-render { font-size: 14px; line-height: 1.55; }
+      .tt-render img { max-width: 100%; }
+      .tt-render table { display: block; overflow-x: auto; max-width: 100%; font-size: 12px; }
+      .tt-render pre { overflow-x: auto; }
+      .tt-render > svg { max-width: 100%; height: auto; }
+      .tt-render kbd { font: 12px var(--monospace); padding: 0.1em 0.4em; border: 1px solid var(--theme-foreground-faint); border-bottom-width: 2px; border-radius: 4px; }
+      .tt-render mark { background: #fde68a; color: #111; }
+      .tt-render .contains-task-list { list-style: none; padding-left: 1.2em; }
+      .tt-render eq, .tt-render eqn { color: inherit; }
+      .tt-frontmatter { margin: 0.75rem 0; font-size: 12px; color: var(--theme-foreground-muted); }
+      .tt-error { color: var(--theme-red, #d33); font-size: 13px; }
+      .markdown-alert { border-left: 4px solid var(--tt-alert); padding: 0.25rem 1rem; margin: 1rem 0; }
+      .markdown-alert-title { display: flex; gap: 0.5rem; align-items: center; font-weight: 600; color: var(--tt-alert); margin: 0.5rem 0; }
+      .markdown-alert-title svg { fill: currentColor; }
+      .markdown-alert-note { --tt-alert: #4493f8; }
+      .markdown-alert-tip { --tt-alert: #3fb950; }
+      .markdown-alert-important { --tt-alert: #ab7df8; }
+      .markdown-alert-warning { --tt-alert: #d29922; }
+      .markdown-alert-caution { --tt-alert: #f85149; }
+      .tt-copy, .tt-button { font: 500 13px/1 var(--sans-serif); cursor: pointer; border-radius: 6px; border: 1px solid var(--theme-foreground-faint); background: var(--theme-background); color: var(--theme-foreground); }
+      .tt-copy { padding: 0.3rem 0.6rem; font-size: 12px; }
+      .tt-button { padding: 0.6rem 0.9rem; }
+      .tt-button:hover, .tt-copy:hover { border-color: var(--theme-foreground-focus); }
+      .tt-buttons { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+      .tt-muted { color: var(--theme-foreground-muted); font-size: 14px; }
+      /* highlight.js tokens mapped to the notebook theme */
+      .hljs-keyword, .hljs-built_in, .hljs-type { color: var(--syntax-keyword, #d73a49); }
+      .hljs-string, .hljs-regexp { color: var(--syntax-string, #032f62); }
+      .hljs-comment { color: var(--syntax-comment, #6a737d); font-style: italic; }
+      .hljs-number, .hljs-literal { color: var(--syntax-constant, #005cc5); }
+      .hljs-title, .hljs-function .hljs-title { color: var(--syntax-entity, #6f42c1); }
+      .hljs-addition { color: #22863a; background: #22863a1a; }
+      .hljs-deletion { color: #b31d28; background: #b31d281a; }
+      @media (max-width: 720px) {
+        .tt-split { grid-template-columns: minmax(0, 1fr); }
+        .tt-source, .tt-preview { max-height: 420px; }
+      }
+    </style>
+  </script>
+</notebook>

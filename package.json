@@ -1,0 +1,16 @@
+{
+  "name": "notebooks",
+  "version": "1.0.0",
+  "description": "Observable notebooks by Alex Ershov (Rufflet), in the open Notebooks 2.0 format",
+  "scripts": {
+    "embed": "node scripts/embed-cases.mjs",
+    "preview": "npm run embed && notebooks preview",
+    "build": "npm run embed && notebooks build --empty -- torture-test/index.html"
+  },
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@observablehq/notebook-kit": "^2.7.1"
+  },
+  "private": true
+}
